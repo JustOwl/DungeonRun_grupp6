@@ -29,6 +29,7 @@ class Map:
         for i in range(len(self.rooms)):
             if(self.rooms[i].location == self.player_location):
                 print(self.player_location, i)
+                self.current_pos = self.rooms[i]
                 return i # Returns id of current room
 
     def check_room(self):
