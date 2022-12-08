@@ -9,6 +9,14 @@ MENU_WELCOME_SCREEN = '''
 To start your new adventure, press 1!
             '''
 
+MENU_USER_SIGNUP = '''
+Type corrensponding number of your choice and hit enter!
+
+1. Start new adventure
+2. See stats of previous adventures
+
+'''
+
 MENU_CHARACTER_CHOICE = '''
 
 Welcome!
@@ -52,4 +60,3 @@ Type the corrensponding number with choosen map size and hit enter.
 3. 8x8
 - 64 Rooms
 '''
-
