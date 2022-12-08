@@ -2,8 +2,11 @@ class Map:
     def __init__(self, room_ls : list, size : int):
       self.rooms = room_ls
       self.size  = size
+      self.player_location = ()
+      self.current_pos = ()
 
     def draw_map(self, player_location: tuple):
+        self.player_location = player_location
         player_icon = "[X]"
         temp = ""
         row  = 0
@@ -22,6 +25,18 @@ class Map:
                 row += self.size
                 print(" [] "*self.size)
                 temp = ""
+    def current_room(self):
+        for i in range(len(self.rooms)):
+            if(self.rooms[i].location == self.player_location):
+                print(self.player_location, i)
+                return i # Returns id of current room
+
+    def check_room(self):
+        # TODO Check current room and see if it has:
+        # A: any monsters and if so start combat
+        # B: any treasure and if so pick it up and add to score
+        # C: None of the above and ask the player to move on
+        pass 
 
 
 class Room:
@@ -49,7 +64,7 @@ def main():
     current_map = Map(rooms,map_size)
     current_map.draw_map((1,2)) # The value given is the players current position, could be sent from other scripts
                                 # Format should be: tuple(int, int), must be within the bounds of the map or it wont show
-
+    current_map.current_room()
 
 if __name__ == "__main__":
     main()
