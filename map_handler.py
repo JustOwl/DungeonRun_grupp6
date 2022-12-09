@@ -49,7 +49,7 @@ class Room:
       self.location = cordinate
 
     def moster_spawn(): # TODO Use values from the moster classes to determine if there should be a monster here or not
-        pass
+        pass 
 
     def treasure_spawn(): # TODO Use values from the treasure classes to determine if there should be a monster here or not
         pass
@@ -58,7 +58,7 @@ class Room:
        return str(self.location)
 
 
-def main():
+def make_map(map_size = 4):
     map_size = 4  # This should be sent from the meny
     rooms    = [] # List with all instances of rooms for later use
 
@@ -66,11 +66,23 @@ def main():
         for j in range(map_size):
             rooms.append(Room((i,j)))
 
+    return rooms
+
+
+def next_round(rooms : list, map_size = 4, player_location = (0,0)):
     current_map = Map(rooms,map_size)
-    current_map.draw_map((1,2)) # The value given is the players current position, could be sent from other scripts
+    current_map.draw_map(player_location) # The value given is the players current position, could be sent from other scripts
                                 # Format should be: tuple(int, int), must be within the bounds of the map or it wont show
     current_map.current_room()
     current_map.check_room()
+
+# Used for testing
+def main():
+    rooms = make_map()
+    while True:
+        next_round(rooms)
+        input("Press enter for next round")
+
 
 if __name__ == "__main__":
     main()
