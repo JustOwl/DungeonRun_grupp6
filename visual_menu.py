@@ -28,21 +28,21 @@ Type the corrensponding number to the character you would like to play with!
 - Initiative: 5
 - Health Points: 9
 - Attack: 6
-- Flexibility: 4
+- Dexterity: 4
 - Special Ability: Shieldblock, blocks first attack.
 
 2. The Wizard
 - Initiative: 6
 - Health Points: 4
 - Attack: 9
-- Flexibility: 5
+- Dexterity: 5
 - Special Ability: Flashbang, makes monsters blind and has 80% Chance of escaping
 
 3. The Thief
 - Initiative: 7
 - Health Points: 5
 - Attack: 5
-- Flexibility: 7
+- Dexterity: 7
 - Special Ability: Critical Hit, a 25% Chance of making double damage every attack.
                         '''
 

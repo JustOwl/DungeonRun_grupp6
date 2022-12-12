@@ -1,0 +1,19 @@
+{
+    "users": [
+        {
+            "name": "Fabian00",
+            "class": "Thief",
+            "points": 1
+        },
+        {
+            "name": "xx_KarlB_xx",
+            "class": "Wizard",
+            "points": 8
+        },
+        {
+            "name": "jonas",
+            "class": "Thief",
+            "points": 18
+        }
+    ]
+}
