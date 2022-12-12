@@ -1,4 +1,5 @@
 import characters
+import end_game
 
 
 def set_player_class():
@@ -46,6 +47,9 @@ def game_setup():
     map_size = set_map_size()
     # returns int(1-4) with starting position
     start_pos = set_start_pos()
+    player = characters.Player(type=player_class)
+    char = end_game.char_creation(player.type)
+    end_game.write_json(char, fpjson=end_game.FILEPATHJSON)
 
 
 def get_stats():
