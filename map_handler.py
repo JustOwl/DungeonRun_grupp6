@@ -12,10 +12,9 @@ class Map:
         row  = 0
 
         for i in range(self.size):
-            for j in range(self.size):
-                temp += str(self.rooms[j+row]) # This is for the cordinates of the rooms
+            #for j in range(self.size):
+            #    temp += str(self.rooms[j+row]) # This is for the cordinates of the rooms
                                                # Might not get used
-
             if (player_location[0] == i): # Get the row where the player is
                 for j in range(self.size):
                     if(player_location[1] == j): # Get the collumn where the player is
@@ -59,7 +58,6 @@ class Room:
 
 
 def make_map(map_size = 4):
-    map_size = 4  # This should be sent from the meny
     rooms    = [] # List with all instances of rooms for later use
 
     for i in range(map_size):

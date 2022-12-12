@@ -5,7 +5,7 @@ def main(player_pos = (0,0), map_size = 4):
     current_map = map_handler.make_map(map_size)
     map_handler.next_round(current_map,map_size,player_pos)
     while True:
-        p_in = input("Type in cardinal direction: ")
+        p_in = input("Type in cardinal direction(N/S/E/W): ")
         if(p_in.lower() == "n"): # Go North on the map
             if player_pos[0]-1 in range(map_size):
                 player_pos = (player_pos[0]-1,player_pos[1])
