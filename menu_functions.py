@@ -13,17 +13,12 @@ def set_player_class():
             print("wrong input!")
 
 
-# def set_playername():
-    # name = input("name: ")
-    # return name
-
-
 def set_map_size():
-    maps = {"1": (4, 4), "2": (5, 5), "3": (8, 8)}
+    maps = {"1": 4, "2": 5, "3": 8}
     while True:
         room_size = input("select map size (1-3): ")
         if room_size in maps.keys():
-            print(f"map size is {maps[room_size][0]}x{maps[room_size][1]}")
+            print(f"map size is {maps[room_size]}x{maps[room_size]}")
             return maps[room_size]
         else:
             print("wrong input!")
@@ -44,18 +39,24 @@ def game_setup():
     # check if player already exists
     # else, create new
     player_class = set_player_class()
-    map_size = set_map_size()
+
     player = characters.Player(type=player_class)
-    char = end_game.char_creation(player.type)
-    end_game.write_json(char, fpjson=end_game.FILEPATHJSON)
+    map_size = set_map_size()
+
+
+<< << << < HEAD
+player = characters.Player(type=player_class)
+char = end_game.char_creation(player.type)
+end_game.write_json(char, fpjson=end_game.FILEPATHJSON)
+== == == =
+
+>>>>>> > 0dd257786e5d5ee3c239db35223823a3aec5a819
+
 
 def get_stats():
     # print stats
     pass
 
 
-
 if __name__ == "__main__":
     select_option()
-
-
