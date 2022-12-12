@@ -42,15 +42,10 @@ def game_setup():
 
     player = characters.Player(type=player_class)
     map_size = set_map_size()
+    player = characters.Player(type=player_class)
+    char = end_game.char_creation(player.type)
+    end_game.write_json(char, fpjson=end_game.FILEPATHJSON)
 
-
-<< << << < HEAD
-player = characters.Player(type=player_class)
-char = end_game.char_creation(player.type)
-end_game.write_json(char, fpjson=end_game.FILEPATHJSON)
-== == == =
-
->>>>>> > 0dd257786e5d5ee3c239db35223823a3aec5a819
 
 
 def get_stats():
