@@ -60,3 +60,17 @@ Type the corrensponding number with choosen map size and hit enter.
 3. 8x8
 - 64 Rooms
 '''
+
+MENU_MAP_START_POS = '''
+
+Choose your starting position.
+
+1. Top left
+
+2. Top right
+
+3. Bottom left
+
+4. Bottom right 
+
+'''
