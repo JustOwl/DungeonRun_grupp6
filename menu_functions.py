@@ -12,17 +12,12 @@ def set_player_class():
             print("wrong input!")
 
 
-def set_playername():
-    name = input("name: ")
-    return name
-
-
 def set_map_size():
-    maps = {"1": (4, 4), "2": (5, 5), "3": (8, 8)}
+    maps = {"1": 4, "2": 5, "3": 8}
     while True:
         room_size = input("select map size (1-3): ")
         if room_size in maps.keys():
-            print(f"map size is {maps[room_size][0]}x{maps[room_size][1]}")
+            print(f"map size is {maps[room_size]}x{maps[room_size]}")
             return maps[room_size]
         else:
             print("wrong input!")
@@ -40,12 +35,12 @@ def select_option():
 
 
 def game_setup():
-    name = set_playername()
     # check if player already exists
     # else, create new
     player_class = set_player_class()
+
+    player = characters.Player(type=player_class)
     map_size = set_map_size()
-    player = characters.Player(name=name, type=player_class)
 
 
 def get_stats():
