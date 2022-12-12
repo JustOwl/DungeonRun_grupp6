@@ -1,4 +1,5 @@
 import characters
+import end_game
 
 
 def set_player_class():
@@ -12,9 +13,9 @@ def set_player_class():
             print("wrong input!")
 
 
-def set_playername():
-    name = input("name: ")
-    return name
+# def set_playername():
+    # name = input("name: ")
+    # return name
 
 
 def set_map_size():
@@ -40,18 +41,21 @@ def select_option():
 
 
 def game_setup():
-    name = set_playername()
     # check if player already exists
     # else, create new
     player_class = set_player_class()
     map_size = set_map_size()
-    player = characters.Player(name=name, type=player_class)
-
+    player = characters.Player(type=player_class)
+    char = end_game.char_creation(player.type)
+    end_game.write_json(char, fpjson=end_game.FILEPATHJSON)
 
 def get_stats():
     # print stats
     pass
 
 
+
 if __name__ == "__main__":
     select_option()
+
+

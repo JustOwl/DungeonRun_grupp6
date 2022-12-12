@@ -55,10 +55,10 @@ def write_json(new_data, fpjson):
 # Function for creating new user in menu
 
 
-def char_creation():
+def char_creation(player_class = ""):
     data_dict = {"name": "", "class": "", "points": 0}
     data_input = input("please enter username: ")
-    data_input_char = input("Write character: ")
+    data_input_char = player_class
     data_dict["name"] = (data_input)
     data_dict["class"] = (data_input_char)
     print("user added")
@@ -81,4 +81,3 @@ def update_user_points(collected_points, fpjson):
 #write_json(char_creation(), FILEPATHJSON)
 #update_user_points(collected_points=7, fpjson=FILEPATHJSON)
 
-player_dead(classname="users", fpjson=FILEPATHJSON)
