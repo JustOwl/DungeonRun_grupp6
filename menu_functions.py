@@ -1,11 +1,16 @@
 import characters
 import end_game
+import visual_menu
+import os
+import time
 import player_movement
 
 
 def set_player_class():
     player_classes = {"1": "knight", "2": "wizard", "3": "thief"}
     while True:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(visual_menu.MENU_CHARACTER_CHOICE)
         selected_class = input("choose your class (1-3): ")
         if selected_class in player_classes.keys():
             print(f"selected class is {player_classes[selected_class]}")
@@ -17,6 +22,8 @@ def set_player_class():
 def set_map_size():
     maps = {"1": 4, "2": 5, "3": 8}
     while True:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(visual_menu.MENU_MAP_CHOICE)
         room_size = input("select map size (1-3): ")
         if room_size in maps.keys():
             print(f"map size is {maps[room_size]}x{maps[room_size]}")
@@ -27,6 +34,8 @@ def set_map_size():
 
 def set_start_pos():
     while True:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(visual_menu.MENU_MAP_START_POS)
         positions = {"1": "top left", "2": "top right ",
                      "3": "bottom left", "4": "bottom right"}
         starting_pos = input("choose a starting position (1-4): ")
@@ -56,8 +65,12 @@ def get_stats():
     pass
 
 
-def select_option():
+def main_menu():
     while True:
+        # runs cls if os is windows. runs clear if unix-based (osx, linux)
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(visual_menu.MENU_WELCOME_SCREEN)
+        print(visual_menu.MENU_USER_SIGNUP)
         selected_option = input("select option (1-2): ")
         if selected_option == "1":
             return game_setup()
@@ -65,7 +78,8 @@ def select_option():
             return get_stats()
         else:
             print("wrong input!")
+            time.sleep(1)
 
 
 if __name__ == "__main__":
-    select_option()
+    main_menu()
