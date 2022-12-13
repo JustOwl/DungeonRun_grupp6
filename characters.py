@@ -35,4 +35,10 @@ class Monster(Character):
 
     # sets stats and probability according to class
     def generate_class(self):
-        pass
+        types = {"spider": (7, 1, 2, 3), "skeleton": (
+            4, 2, 3, 3), "orc": (6, 3, 4, 4), "troll": (2, 4, 7, 2)}
+
+        self.initiative = types[self.type][0]
+        self.health = types[self.type][1]
+        self.attack = types[self.type][2]
+        self.dexterity = types[self.type][3]
