@@ -56,9 +56,10 @@ def game_setup():
     player = characters.Player(type=player_class)
     char = end_game.char_creation(player.type)
     end_game.write_json(char, fpjson=end_game.FILEPATHJSON)
-    player_movement.main(set_start_pos(),set_map_size())
+    player_movement.main(set_start_pos(), set_map_size())
 
-#TODO Load char from jsons
+# TODO Load char from jsons
+
 
 def get_stats():
     # print stats
