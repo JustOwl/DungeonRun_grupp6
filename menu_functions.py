@@ -1,9 +1,10 @@
 import characters
-import end_game
+import stats_functions
 import visual_menu
 import os
 import time
 import player_movement
+import json
 
 
 def set_player_class():
@@ -54,15 +55,24 @@ def game_setup():
     # creates player and generates all stats according to selected class
     player = characters.Player(type=player_class)
     player = characters.Player(type=player_class)
-    char = end_game.char_creation(player.type)
-    end_game.write_json(char, fpjson=end_game.FILEPATHJSON)
+    char = stats_functions.char_creation(player.type)
+    stats_functions.write_json(char, fpjson=stats_functions.FILEPATHJSON)
     player_movement.main(set_start_pos(),set_map_size())
 
 #TODO Load char from jsons
 
 def get_stats():
-    # print stats
-    pass
+    try:
+        with open("data/users.json") as f:
+            stats = json.load(f)
+            player_name = [x['name'] for x in stats["users"]]
+            print(f'USERNAMES: {player_name}\n')
+            selected_user = input("select which player you would like to view stats from: ")
+            pos = int(selected_user)
+            pos = pos -1
+            stats_functions.view_stats(pos)
+    except IndexError:
+        print("Select a username that exists.")
 
 
 def main_menu():
