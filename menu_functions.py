@@ -59,7 +59,6 @@ def game_setup():
     stats_functions.write_json(char, fpjson=stats_functions.FILEPATHJSON)
     player_movement.main(set_start_pos(),set_map_size())
 
-#TODO Load char from jsons
 
 def get_stats():
     try:
