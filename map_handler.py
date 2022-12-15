@@ -7,17 +7,24 @@ class Map:
       self.player_location = ()
       self.current_pos = ()
 
-    def draw_map(self, player_location: tuple):
+    def draw_map_easy(self, player_location: tuple = (0,0)):
+        row = 0
+        for i in range(self.size): # Rows
+            temp_ls = []
+            for j in range(self.size): # Collums in the row
+                temp_ls.insert(self.rooms[j+row].location[1],self.rooms[j+row].has_visited)
+            if(player_location[0] == i):
+                    temp_ls[player_location[1]] = "[X]"
+            print(''.join(temp_ls))
+            row += self.size
+
+    # Will not get used but did not want to delete
+    def draw_map_hard(self, player_location: tuple): #Hard mode, player needs to remember where they are
         self.player_location = player_location
         player_icon = "[X]"
-
-        temp = ""
         row  = 0
 
         for i in range(self.size):
-            #for j in range(self.size):
-            #    temp += str(self.rooms[j+row]) # This is for the cordinates of the rooms
-                                               # Might not get used
             if (player_location[0] == i): # Get the row where the player is
                 for j in range(self.size):
                     if(player_location[1] == j): # Get the collumn where the player is
@@ -26,11 +33,10 @@ class Map:
             else: # All rows the player is not in
                 row += self.size
                 print(" [] "*self.size)
-                temp = ""
 
-    def current_room(self):
+    def current_room(self, player_pos):
         for i in range(len(self.rooms)):
-            if(self.rooms[i].location == self.player_location):
+            if(self.rooms[i].location == player_pos):
                 print(self.player_location, i)
                 self.current_pos = (self.rooms[i].location, i)
                 return i # Returns id of current room
@@ -47,7 +53,7 @@ class Map:
 
 
 class Room:
-    def __init__(self, cordinate: tuple, has_exit : bool = False, has_visited: bool = False):
+    def __init__(self, cordinate: tuple, has_exit : bool = False, has_visited : str = "[?]"):
       self.location = cordinate
       self.monster = ""
       self.treasure = 0
@@ -86,7 +92,6 @@ class Room:
     def __str__(self) -> str:
        return str(self.location)
 
-
 def make_map(map_size = 4):
     rooms    = [] # List with all instances of rooms for later use
 
@@ -101,19 +106,23 @@ def gen_random(rooms):
 
     for i in rooms:
         if(i == exit_room):
-            i(has_exit = True)
+            i.has_exit = True
         else:
             i.monster_spawn()
             i.treasure_spawn()
 
-def next_round(rooms : list, map_size = 4, player_location = (0,0)):
-    current_map = Map(rooms,map_size)
-    
-    current_map.draw_map(player_location) # The value given is the players current position, could be sent from other scripts
+def save_room(rooms : list, room_id : int):
+        rooms[room_id].has_visited = "[ ]"
+        rooms[room_id].monster     = ""
+        rooms[room_id].treasure    = 0
+
+def next_round(map ,rooms : list, map_size = 4, player_location = (0,0)):
+    #map.draw_map_hard(player_location) # The value given is the players current position, could be sent from other scripts
                                           # Format should be: tuple(int, int)
-    
-    current_map.current_room()
-    current_map.check_room()
+
+    map.draw_map_easy(player_location)
+    map.check_room()
+    save_room(rooms,map.current_room(player_location))
 
 # Used for testing
 def main():
