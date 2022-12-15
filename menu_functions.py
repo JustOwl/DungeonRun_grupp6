@@ -5,6 +5,7 @@ import os
 import time
 import player_movement
 import json
+import time
 
 
 def set_player_class():
@@ -84,8 +85,9 @@ def select_char():
             input("Press any key to continue")
             return (char)
     except IndexError:
-        print("Select a user that exists.")
-
+        print("\n")
+        print("Select user that exists. \n")
+        return select_char()
 # Skips steps where you create character since you´re using an already existing one
 
 
@@ -123,7 +125,9 @@ def main_menu():
         elif selected_option == "2":
             return game_start_from_char()
         elif selected_option == "3":
-            return get_stats()
+            get_stats()
+            time.sleep(4)
+            return main_menu()
         else:
             print("wrong input!")
             time.sleep(1)
