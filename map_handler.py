@@ -1,3 +1,5 @@
+import random
+
 class Map:
     def __init__(self, room_ls : list, size : int):
       self.rooms = room_ls
@@ -8,6 +10,7 @@ class Map:
     def draw_map(self, player_location: tuple):
         self.player_location = player_location
         player_icon = "[X]"
+
         temp = ""
         row  = 0
 
@@ -44,14 +47,41 @@ class Map:
 
 
 class Room:
-    def __init__(self, cordinate: tuple):
+    def __init__(self, cordinate: tuple, has_exit : bool = False, has_visited: bool = False):
       self.location = cordinate
+      self.monster = ""
+      self.treasure = 0
+      self.has_exit = has_exit
+      self.has_visited = has_visited
 
-    def moster_spawn(): # TODO Use values from the moster classes to determine if there should be a monster here or not
-        pass 
 
-    def treasure_spawn(): # TODO Use values from the treasure classes to determine if there should be a monster here or not
-        pass
+    def monster_spawn(self):
+        spawn_chanse = random.randint(0,100)
+
+        if(spawn_chanse in range(51,101)):
+            self.monster = ""
+        elif(spawn_chanse in range(0,21)):
+            self.monster = "spider"
+        elif(spawn_chanse in range(21,36)):
+            self.monster = "skeleton"
+        elif(spawn_chanse in range(36,46)):
+            self.monster = "orc"
+        elif(spawn_chanse in range(46,51)):
+            self.monster = "troll"
+
+    def treasure_spawn(self):
+        spawn_chanse = random.randint(0,100)
+
+        if(spawn_chanse in range(0,41)):
+            self.treasure = 2
+        elif(spawn_chanse in range(41,61)):
+            self.treasure = 6
+        elif(spawn_chanse in range(61,76)):
+            self.treasure = 10
+        elif(spawn_chanse in range(76,86)):
+            self.treasure = 14
+        elif(spawn_chanse in range(86,91)):
+            self.treasure = 20
 
     def __str__(self) -> str:
        return str(self.location)
@@ -66,11 +96,22 @@ def make_map(map_size = 4):
 
     return rooms
 
+def gen_random(rooms):
+    exit_room = random.randint(0,len(rooms))
+
+    for i in rooms:
+        if(i == exit_room):
+            i(has_exit = True)
+        else:
+            i.monster_spawn()
+            i.treasure_spawn()
 
 def next_round(rooms : list, map_size = 4, player_location = (0,0)):
     current_map = Map(rooms,map_size)
+    
     current_map.draw_map(player_location) # The value given is the players current position, could be sent from other scripts
-                                # Format should be: tuple(int, int), must be within the bounds of the map or it wont show
+                                          # Format should be: tuple(int, int)
+    
     current_map.current_room()
     current_map.check_room()
 
