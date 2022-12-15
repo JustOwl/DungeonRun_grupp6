@@ -8,7 +8,7 @@ import json
 
 
 def set_player_class():
-    player_classes = {"1": "knight", "2": "wizard", "3": "thief"}
+    player_classes = {"1": "Knight", "2": "Wizard", "3": "Thief"}
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         print(visual_menu.MENU_CHARACTER_CHOICE)
@@ -51,13 +51,49 @@ def game_setup():
     # check if player already exists
     # else, create new
     player_class = set_player_class()
-
     # creates player and generates all stats according to selected class
-    player = characters.Player(type=player_class)
     player = characters.Player(type=player_class)
     char = stats_functions.char_creation(player.type)
     stats_functions.write_json(char, fpjson=stats_functions.FILEPATHJSON)
-    player_movement.main(set_start_pos(),set_map_size())
+    player_movement.main(player, set_start_pos(), set_map_size())
+
+# Gets already existing players and selects them for use
+
+
+def select_char():
+    try:
+        with open("data/users.json") as f:
+            char = {"name": "", "class": "", "points": 0}
+            stats = json.load(f)
+            print([x["name"] for x in stats["users"]])
+            selected_user = input("Select user: ")
+            player_name = [x['name'] for x in stats["users"]]
+            player_class = [x['class'] for x in stats["users"]]
+            player_points = [x['points'] for x in stats["users"]]
+            pos = int(selected_user)
+            pos = pos - 1
+            char["name"] = player_name[pos]
+            char["class"] = player_class[pos]
+            char["points"] = player_points[pos]
+            print(f'''
+            {visual_menu.WELCOME_BACK}
+            User: {char["name"]} 
+            Class: {char["class"]}
+            Current points: {char["points"]}\n''')
+
+            input("Press any key to continue")
+            return (char)
+    except IndexError:
+        print("Select a user that exists.")
+
+# Skips steps where you create character since you´re using an already existing one
+
+
+def game_start_from_char():
+    char = select_char()
+    player = characters.Player(type=char["class"], points=char["points"])
+    #stats_functions.write_json(char, fpjson=stats_functions.FILEPATHJSON)
+    player_movement.main(player, set_start_pos(), set_map_size())
 
 
 def get_stats():
@@ -66,9 +102,10 @@ def get_stats():
             stats = json.load(f)
             player_name = [x['name'] for x in stats["users"]]
             print(f'USERNAMES: {player_name}\n')
-            selected_user = input("select which player you would like to view stats from: ")
+            selected_user = input(
+                "select which player you would like to view stats from: ")
             pos = int(selected_user)
-            pos = pos -1
+            pos = pos - 1
             stats_functions.view_stats(pos)
     except IndexError:
         print("Select a username that exists.")
@@ -80,10 +117,12 @@ def main_menu():
         os.system('cls' if os.name == 'nt' else 'clear')
         print(visual_menu.MENU_WELCOME_SCREEN)
         print(visual_menu.MENU_USER_SIGNUP)
-        selected_option = input("select option (1-2): ")
+        selected_option = input("select option (1-3): ")
         if selected_option == "1":
             return game_setup()
         elif selected_option == "2":
+            return game_start_from_char()
+        elif selected_option == "3":
             return get_stats()
         else:
             print("wrong input!")

@@ -13,7 +13,8 @@ MENU_USER_SIGNUP = '''
 Type corrensponding number of your choice and hit enter!
 
 1. Start new adventure
-2. See stats of previous adventures
+2. Start adventure with existing character
+3. See stats of previous adventures
 
 '''
 
@@ -74,3 +75,13 @@ Choose your starting position.
 4. Bottom right 
 
 '''
+
+WELCOME_BACK = """
+__    __        _                                      ___               _    
+/ / /\ \ \  ___ | |  ___   ___   _ __ ___    ___       / __\  __ _   ___ | | __
+\ \/  \/ / / _ \| | / __| / _ \ | '_ ` _ \  / _ \     /__\// / _` | / __|| |/ /
+ \  /\  / |  __/| || (__ | (_) || | | | | ||  __/    / \/  \| (_| || (__ |   < 
+  \/  \/   \___||_| \___| \___/ |_| |_| |_| \___|    \_____/ \__,_| \___||_|\_\
+
+
+"""
