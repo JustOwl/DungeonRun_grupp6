@@ -126,7 +126,7 @@ def main_menu():
             return game_start_from_char()
         elif selected_option == "3":
             get_stats()
-            time.sleep(4)
+            input("Press any key to return to main menu ")
             return main_menu()
         else:
             print("wrong input!")
