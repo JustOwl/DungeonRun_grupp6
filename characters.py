@@ -1,3 +1,7 @@
+import random
+import time
+
+
 class Character:
     def __init__(self, type=''):
         super().__init__()
@@ -6,6 +10,27 @@ class Character:
         self.attack = 0
         self.dexterity = 0
         self.type = type
+
+    def roll_dice(self, no_of_dice):
+        dice_score = 0
+        print(f"*rolls dice*")
+        time.sleep(1)
+
+        for roll in range(no_of_dice):
+            dice = random.randint(1, 6)
+            print(dice)
+            dice_score += dice
+            time.sleep(0.1)
+        print(f"result: {dice_score}")
+        time.sleep(0.5)
+        return dice_score
+
+    def check_hit(self, dice_score):
+        if dice_score < self.dexterity:
+            print("miss!")
+        else:
+            print("Hit!")
+            self.health -= 1
 
 
 class Player(Character):
@@ -31,10 +56,17 @@ class Monster(Character):
 
     # sets stats according to type
     def generate_class(self):
-        types = {"spider": (7, 1, 2, 3), "skeleton": (
-            4, 2, 3, 3), "orc": (6, 3, 4, 4), "troll": (2, 4, 7, 2)}
+        types = {"Spider": (7, 1, 2, 3), "Skeleton": (
+            4, 2, 3, 3), "Orc": (6, 3, 4, 4), "Troll": (2, 4, 7, 2)}
 
         self.initiative = types[self.type][0]
         self.health = types[self.type][1]
         self.attack = types[self.type][2]
         self.dexterity = types[self.type][3]
+
+
+if __name__ == "__main__":
+    player = Player(type="Thief")
+    monster = Monster(type="Spider")
+    print(f"result: {player.roll_dice(player.initiative)}")
+    print(f"result: {monster.roll_dice(monster.initiative)}")
