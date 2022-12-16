@@ -38,18 +38,18 @@ class Map:
     def current_room(self, player_pos):
         for i in range(len(self.rooms)):
             if(self.rooms[i].location == player_pos):
-                print(self.player_location, i)
+                #print(self.player_location, i)
                 self.current_pos = (self.rooms[i].location, i)
                 return i # Returns id of current room
 
     def check_room(self):
         c_room = self.current_room(self.player_location)
 
-        if c_room.has_exit == True:
+        if self.rooms[c_room].has_exit == True:
             pass
             # TODO Call the function that asks if the player wants to exit or not
 
-        if c_room.monster != "":
+        if self.rooms[c_room].monster != "":
             print("There is a monster here")
             pass
             # TODO Call start of combat with c_room.monster as the type of monster to fight
@@ -132,8 +132,9 @@ def next_round(map ,rooms : list, map_size = 4, player_location = (0,0)):
 # Used for testing
 def main():
     rooms = make_map()
+    _map = Map(rooms,4)
     while True:
-        next_round(rooms)
+        next_round(_map,rooms)
         input("Press enter for next round")
 
 
