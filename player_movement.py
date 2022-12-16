@@ -9,7 +9,7 @@ def main(player, corner_int=1, map_size=4):
     player_pos = pick_corner(corner_int, map_size)
     map_handler.next_round(current_map, map_size, player_pos)
     while True:
-        print(f"health: {str(player.health)} | points: {str(player.points)}")
+        print(f"Health: {str(player.health)} | Class: {str(player.type)} | Points: {str(player.points)}")
         p_in = input("Type in cardinal direction(N/S/E/W): ")
         if (p_in.lower() == "n"):  # Go North on the map
             if player_pos[0]-1 in range(map_size):

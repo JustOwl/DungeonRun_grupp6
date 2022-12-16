@@ -61,6 +61,17 @@ def game_setup():
 # Gets already existing players and selects them for use
 
 
+def get_info_users(stats, pos):
+    char = {"name": "", "class": "", "points": 0}
+    player_name = [x['name'] for x in stats["users"]]
+    player_class = [x['class'] for x in stats["users"]]
+    player_points = [x['points'] for x in stats["users"]]
+    char["name"] = player_name[pos]
+    char["class"] = player_class[pos]
+    char["points"] = player_points[pos]
+    return char
+
+
 def select_char():
     try:
         with open("data/users.json") as f:
@@ -68,20 +79,14 @@ def select_char():
             stats = json.load(f)
             print([x["name"] for x in stats["users"]])
             selected_user = input("Select user: ")
-            player_name = [x['name'] for x in stats["users"]]
-            player_class = [x['class'] for x in stats["users"]]
-            player_points = [x['points'] for x in stats["users"]]
             pos = int(selected_user)
             pos = pos - 1
-            char["name"] = player_name[pos]
-            char["class"] = player_class[pos]
-            char["points"] = player_points[pos]
+            char = get_info_users(stats, pos)
             print(f'''
             {visual_menu.WELCOME_BACK}
             User: {char["name"]} 
             Class: {char["class"]}
             Current points: {char["points"]}\n''')
-
             input("Press any key to continue")
             return (char)
     except IndexError:
@@ -94,7 +99,6 @@ def select_char():
 def game_start_from_char():
     char = select_char()
     player = characters.Player(type=char["class"], points=char["points"])
-    #stats_functions.write_json(char, fpjson=stats_functions.FILEPATHJSON)
     player_movement.main(player, set_start_pos(), set_map_size())
 
 
@@ -113,13 +117,25 @@ def get_stats():
         print("Select a username that exists.")
 
 
+def exit_game():
+    confirm = input(
+        "Are you sure you would like to exit the game?  Y/N \n").lower()
+    if confirm == "n":
+        return main_menu()
+    elif confirm == "y":
+        os.system('cls' if os.name == 'nt' else 'clear')
+    else:
+        print("Wrong input, try again. ")
+        return exit_game()
+
+
 def main_menu():
     while True:
         # runs cls if os is windows. runs clear if unix-based (osx, linux)
         os.system('cls' if os.name == 'nt' else 'clear')
         print(visual_menu.MENU_WELCOME_SCREEN)
         print(visual_menu.MENU_USER_SIGNUP)
-        selected_option = input("select option (1-3): ")
+        selected_option = input("select option (1-4): ")
         if selected_option == "1":
             return game_setup()
         elif selected_option == "2":
@@ -128,6 +144,9 @@ def main_menu():
             get_stats()
             input("Press any key to return to main menu ")
             return main_menu()
+        elif selected_option == "4":
+            exit_game()
+            break
         else:
             print("wrong input!")
             time.sleep(1)

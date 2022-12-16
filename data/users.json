@@ -14,6 +14,11 @@
             "name": "jonas",
             "class": "Thief",
             "points": 18
+        },
+        {
+            "name": "HEJ",
+            "class": "Wizard",
+            "points": 0
         }
     ]
 }
