@@ -17,8 +17,8 @@ class Player(Character):
 
     def generate_class(self):
         # (initative, health, attack, dexterity)
-        types = {"knight": (5, 9, 6, 4, "shield block"), "wizard": (
-            6, 4, 9, 5, "light beam"), "thief": (7, 5, 5, 7, "critical hit")}
+        types = {"Knight": (5, 9, 6, 4, "shield block"), "Wizard": (
+            6, 4, 9, 5, "light beam"), "Thief": (7, 5, 5, 7, "critical hit")}
 
         self.initiative, self.health, self.attack, self.dexterity, self.ability = types[
             self.type]
@@ -27,7 +27,6 @@ class Player(Character):
 class Monster(Character):
     def __init__(self, type):
         super().__init__(type)
-        # self.probability = 0
         self.generate_class()
 
     # sets stats according to type
