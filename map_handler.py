@@ -9,6 +9,7 @@ class Map:
 
     def draw_map_easy(self, player_location: tuple = (0,0)):
         row = 0
+        self.player_location = player_location
         for i in range(self.size): # Rows
             temp_ls = []
             for j in range(self.size): # Collums in the row
@@ -42,14 +43,22 @@ class Map:
                 return i # Returns id of current room
 
     def check_room(self):
-        # fake code
-        # if(self.current_pos[0].has_monster = True): ...
+        c_room = self.current_room(self.player_location)
 
-        # TODO Check current room and see if it has:
-        # A: any monsters and if so start combat
-        # B: any treasure and if so pick it up and add to score
-        # C: None of the above and ask the player to move on
-        pass 
+        if c_room.has_exit == True:
+            pass
+            # TODO Call the function that asks if the player wants to exit or not
+
+        if c_room.monster != "":
+            print("There is a monster here")
+            pass
+            # TODO Call start of combat with c_room.monster as the type of monster to fight
+            # When the combat loop exits it should automaticaly return here (i think)
+
+        # TODO Call the function that saves loot
+        # The function might want to look like: add_loot(c_room.treasure : int)
+
+        
 
 
 class Room:
@@ -59,7 +68,6 @@ class Room:
       self.treasure = 0
       self.has_exit = has_exit
       self.has_visited = has_visited
-
 
     def monster_spawn(self):
         spawn_chanse = random.randint(0,100)
@@ -117,9 +125,6 @@ def save_room(rooms : list, room_id : int):
         rooms[room_id].treasure    = 0
 
 def next_round(map ,rooms : list, map_size = 4, player_location = (0,0)):
-    #map.draw_map_hard(player_location) # The value given is the players current position, could be sent from other scripts
-                                          # Format should be: tuple(int, int)
-
     map.draw_map_easy(player_location)
     map.check_room()
     save_room(rooms,map.current_room(player_location))
