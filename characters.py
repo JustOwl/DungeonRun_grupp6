@@ -27,7 +27,6 @@ class Player(Character):
 class Monster(Character):
     def __init__(self, type):
         super().__init__(type)
-        # self.probability = 0
         self.generate_class()
 
     # sets stats according to type
