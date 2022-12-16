@@ -49,6 +49,7 @@ def write_json(new_data, fpjson):
         file_data = json.load(file)
         file_data["users"].append(new_data)
         file.seek(0)
+        print(file_data)
         json.dump(file_data, file, indent=4)
 
 

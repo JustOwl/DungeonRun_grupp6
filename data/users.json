@@ -16,18 +16,8 @@
             "points": 18
         },
         {
-            "name": "test123",
-            "class": "knight",
-            "points": 0
-        },
-        {
-            "name": "bla",
-            "class": "thief",
-            "points": 0
-        },
-        {
-            "name": "a",
-            "class": "thief",
+            "name": "HEJ",
+            "class": "Wizard",
             "points": 0
         }
     ]
