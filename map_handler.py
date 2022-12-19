@@ -1,11 +1,14 @@
 import random
-
+import test
+import characters
 class Map:
+    
     def __init__(self, room_ls : list, size : int):
       self.rooms = room_ls
       self.size  = size
       self.player_location = ()
       self.current_pos = ()
+      self.points = 0
 
     def draw_map_easy(self, player_location: tuple = (0,0)):
         row = 0
@@ -55,10 +58,16 @@ class Map:
             # TODO Call start of combat with c_room.monster as the type of monster to fight
             # When the combat loop exits it should automaticaly return here (i think)
 
+        if self.rooms[c_room].treasure != 0:
+            print (f"There is a treasure here worth {self.rooms[c_room].treasure} points!")
+            #test.add_treasure(self.rooms[c_room].treasure)
+            points = self.add_score(self.rooms[c_room].treasure)
         # TODO Call the function that saves loot
         # The function might want to look like: add_loot(c_room.treasure : int)
 
-        
+    def add_score(self, points):
+        self.points += points
+
 
 
 class Room:
