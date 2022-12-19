@@ -19,6 +19,11 @@
             "name": "HEJ",
             "class": "Wizard",
             "points": 0
+        },
+        {
+            "name": "bla",
+            "class": "Knight",
+            "points": 0
         }
     ]
 }
