@@ -28,6 +28,7 @@ def check_initative(player, monster):
 
 
 def combat_loop(player, monster):
+    monster_turn = 1
     current_turn = check_initative(player, monster)
     os.system('cls' if os.name == 'nt' else 'clear')
     while True:
@@ -50,11 +51,17 @@ def combat_loop(player, monster):
                 current_turn = monster.type
 
             elif answer == "2":
+                if player.ability == "light beam":
+                    pass
                 print("You successfully fled to previous room")
                 time.sleep(2)
                 return "fled"
         else:
-            player.check_hit(monster.roll_dice(monster.attack))
+            if player.ability == "shield block" and monster_turn == 1:
+                print("blocked!")
+            else:
+                player.check_hit(monster.roll_dice(monster.attack))
+            monster_turn += 1
             time.sleep(1)
             current_turn = "Your"
             if player.health <= 0:
@@ -67,7 +74,6 @@ def combat_loop(player, monster):
 
 
 if __name__ == "__main__":
-    player = characters.Player(type="Wizard")
+    player = characters.Player(type="Knight")
     monster = characters.Monster(type="Troll")
-    monster.health = 1
     combat_loop(player, monster)
