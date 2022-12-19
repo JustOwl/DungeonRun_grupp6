@@ -15,33 +15,37 @@ def main(player, corner_int=1, map_size=4):
         p_in = input("Type in cardinal direction(N/S/E/W): ")
         if (p_in.lower() == "n"):  # Go North on the map
             if player_pos[0]-1 in range(map_size):
+                last_pos = player_pos
                 player_pos = (player_pos[0]-1, player_pos[1])
                 map_handler.next_round(
-                    current_map, room_ls, map_size, player_pos)
+                    current_map, room_ls, map_size, player_pos, last_pos)
             else:
                 print("That seems to be outside the map, try again")
 
         if (p_in.lower() == "s"):  # Go South on the map
             if player_pos[0]+1 in range(map_size):
+                last_pos = player_pos
                 player_pos = (player_pos[0]+1, player_pos[1])
                 map_handler.next_round(
-                    current_map, room_ls, map_size, player_pos)
+                    current_map, room_ls, map_size, player_pos, last_pos)
             else:
                 print("That seems to be outside the map, try again")
 
         if (p_in.lower() == "e"):  # Go East on the map
             if player_pos[1]+1 in range(map_size):
+                last_pos = player_pos
                 player_pos = (player_pos[0], player_pos[1]+1)
                 map_handler.next_round(
-                    current_map, room_ls, map_size, player_pos)
+                    current_map, room_ls, map_size, player_pos, last_pos)
             else:
                 print("That seems to be outside the map, try again")
 
         if (p_in.lower() == "w"):  # Go West on the map
             if player_pos[1]-1 in range(map_size):
+                last_pos = player_pos
                 player_pos = (player_pos[0], player_pos[1]-1)
                 map_handler.next_round(
-                    current_map, room_ls, map_size, player_pos)
+                    current_map, room_ls, map_size, player_pos, last_pos)
             else:
                 print("That seems to be outside the map, try again")
 

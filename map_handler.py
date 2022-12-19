@@ -21,7 +21,7 @@ class Map:
             temp_ls = []
             for j in range(self.size):  # Collums in the row
                 temp_ls.insert(
-                    self.rooms[j+row].location[1], self.rooms[j+row].has_visited)
+                    self.rooms[j+row].location[1], self.rooms[j+row].room_icon)
             if (player_location[0] == i):
                 temp_ls[player_location[1]] = "[X]"
             print(''.join(temp_ls))
@@ -67,8 +67,8 @@ class Map:
             if result == "won":
                 self.rooms[c_room].monster = ""
             elif result == "fled":
-                # TODO put player in previous room if fled
-                pass
+                self.rooms[c_room].room_icon = "[!]"
+                return False
             else:
                 # TODO add game ending if dead
                 pass
@@ -88,12 +88,12 @@ class Map:
 
 
 class Room:
-    def __init__(self, cordinate: tuple, has_exit: bool = False, has_visited: str = "[?]"):
+    def __init__(self, cordinate: tuple, has_exit: bool = False, room_icon: str = "[?]"):
         self.location = cordinate
         self.monster = ""
         self.treasure = 0
         self.has_exit = has_exit
-        self.has_visited = has_visited
+        self.has_visited = room_icon
 
     def monster_spawn(self):
         spawn_chanse = random.randint(0, 100)
@@ -149,14 +149,16 @@ def gen_random(rooms):
 
 
 def save_room(rooms: list, room_id: int):
-    rooms[room_id].has_visited = "[ ]"
+    rooms[room_id].room_icon = "[ ]"
     rooms[room_id].monster = ""
     rooms[room_id].treasure = 0
 
 
-def next_round(map, rooms: list, map_size=4, player_location=(0, 0)):
-    map.draw_map_easy(player_location)
-    map.check_room()
+def next_round(map, rooms: list, map_size=4, player_location=(0, 0),  last_pos = (0, 0)):
+    if map.check_room() == False: # If the player flees then they return to the last room
+        map.draw_map_easy(last_pos)
+    else:
+        map.draw_map_easy(player_location)
     save_room(rooms, map.current_room(player_location))
 
 # Used for testing
