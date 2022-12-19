@@ -7,7 +7,8 @@ def main(player, user, corner_int=1, map_size=4):
     room_ls = map_handler.make_map(map_size)
     current_map = map_handler.Map(room_ls, map_size, player)
     player_pos = pick_corner(corner_int, map_size)
-    map_handler.next_round(current_map, room_ls, map_size, player_pos)
+    map_movement = Movement(player_pos,map_size)
+    current_map.draw_map_easy(player_pos)
     map_handler.gen_random(room_ls)
     while True:
         print(
@@ -15,43 +16,68 @@ def main(player, user, corner_int=1, map_size=4):
         try:
             p_in = input("Type in cardinal direction(N/S/E/W): ")
             if (p_in.lower() == "n"):  # Go North on the map
-                if move_char(-1,0,player_pos, map_size, current_map, room_ls):
+                if map_movement.move_char(-1, 0, current_map, room_ls):
                     pass
                 else:
                     print("That seems to be outside the map, try again")
 
             if (p_in.lower() == "s"):  # Go South on the map
-                if move_char(1,0,player_pos, map_size, current_map, room_ls):
+                if map_movement.move_char(1, 0, current_map, room_ls):
                     pass
                 else:
                     print("That seems to be outside the map, try again")
 
             if (p_in.lower() == "e"):  # Go East on the map
-                if move_char(1,1,player_pos, map_size, current_map, room_ls):
+                if map_movement.move_char(1, 1, current_map, room_ls):
                     pass
                 else:
                     print("That seems to be outside the map, try again")
 
             if (p_in.lower() == "w"):  # Go West on the map
-                if move_char(-1,1,player_pos, map_size, current_map, room_ls):
+                if map_movement.move_char(-1, 1, current_map, room_ls):
                     pass
                 else:
                     print("That seems to be outside the map, try again")
-        except Exception:
+        except Exception as e:
+            print(e)
             print("Wrong input")
 
-def move_char(move_value : int, v_or_h : int, player_pos, map_size, current_map, room_ls):
-    # v_or_h is if its vertical or horizontal movement, 0 = vertical and 1 = horizontal
-    # it has to do with tuple index
-    if player_pos[v_or_h]+move_value in range(map_size):
-        last_pos = (player_pos[0], player_pos[1])
-        new_pos  = (player_pos[0], player_pos[1]-1)
-        if map_handler.next_round(current_map, room_ls, map_size, player_pos, last_pos):
-            return new_pos
+class Movement:
+    def __init__(self, player_pos, map_size, ):
+      self.player_pos = player_pos
+      self.last_pos = ()
+      self.new_pos  = ()
+      self.map_size = map_size
+
+    def move_char(self,move_value : int, v_or_h : int, current_map, room_ls,):
+        # v_or_h is if its vertical or horizontal movement, 0 = vertical and 1 = horizontal
+        # it has to do with tuple index
+        if v_or_h == 0:
+            if self.player_pos[v_or_h]+move_value in range(self.map_size):
+                self.last_pos = (self.player_pos[0], self.player_pos[1])
+                self.new_pos  = (self.player_pos[0]+move_value, self.player_pos[1])
+                if map_handler.next_round(current_map, room_ls, self.map_size, self.player_pos):
+                    current_map.draw_map_easy(self.new_pos)
+                    self.player_pos = self.new_pos
+                    return True
+                else:
+                    current_map.draw_map_easy(self.last_pos)
+                    self.player_pos = self.last_pos
+            else:
+                return False
         else:
-            return last_pos
-    else:
-        return False
+            if self.player_pos[v_or_h]+move_value in range(self.map_size):
+                self.last_pos = (self.player_pos[0], self.player_pos[1])
+                self.new_pos  = (self.player_pos[0], self.player_pos[1]+move_value)
+                if map_handler.next_round(current_map, room_ls, self.map_size, self.player_pos):
+                    current_map.draw_map_easy(self.new_pos)
+                    self.player_pos = self.new_pos
+                    return True
+                else:
+                    current_map.draw_map_easy(self.last_pos)
+                    self.player_pos = self.last_pos
+            else:
+                return False
 
 def pick_corner(corner, size):
     # 1     2
