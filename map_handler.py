@@ -163,13 +163,11 @@ def save_room(rooms: list, room_id: int):
     rooms[room_id].treasure = 0
 
 
-def next_round(map, rooms: list, map_size=4, player_location=(0, 0),  last_pos = (0, 0)):
+def next_round(map, rooms: list, map_size=4, player_location=(0, 0)):
     map.player_location = player_location
     if map.check_room(): 
-        map.draw_map_easy(player_location)
         return True
     else: # If the player flees then they return to the last room
-        map.draw_map_easy(last_pos)
         return False
 
 # Used for testing
