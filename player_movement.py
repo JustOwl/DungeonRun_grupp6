@@ -3,7 +3,7 @@ import menu_functions
 import characters
 
 
-def main(player, corner_int=1, map_size=4):
+def main(player, user, corner_int=1, map_size=4):
     room_ls = map_handler.make_map(map_size)
     current_map = map_handler.Map(room_ls, map_size, player)
     player_pos = pick_corner(corner_int, map_size)

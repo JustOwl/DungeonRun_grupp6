@@ -88,7 +88,7 @@ def select_char():
             Class: {char["class"]}
             Current points: {char["points"]}\n''')
             input("Press any key to continue")
-            return (char)
+            return (char, pos)
     except Exception:
         print("\n")
         print("Select user that exists. \n")
@@ -98,8 +98,9 @@ def select_char():
 
 def game_start_from_char():
     char = select_char()
-    player = characters.Player(type=char["class"], points=char["points"])
-    player_movement.main(player, set_start_pos(), set_map_size())
+    current_user = stats_functions.User(char[1])
+    player = characters.Player(type=char[0]["class"], points=char[0]["points"])
+    player_movement.main(player, current_user, set_start_pos(), set_map_size())
 
 
 def get_stats():

@@ -60,6 +60,7 @@ class Map:
             exit_in = input("You have found an exit! Do you wish to leave the map? (Y/N): ")
             try:
                 if(exit_in.lower() == "y"):
+                    
                     pass # TODO Call the function that ends the game and save the score
                 elif(exit_in.lower() == "n"):
                     self.rooms[c_room].room_icon = "[E]"
