@@ -53,7 +53,7 @@ class Map:
                 self.current_pos = (self.rooms[i].location, i)
                 return i  # Returns id of current room
 
-    def check_room(self):
+    def check_room(self, c_room = 0):
         c_room = self.current_room(self.player_location)
 
         if self.rooms[c_room].has_exit == True:
