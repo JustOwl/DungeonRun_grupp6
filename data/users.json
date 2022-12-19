@@ -19,6 +19,26 @@
             "name": "HEJ",
             "class": "Wizard",
             "points": 0
+        },
+        {
+            "name": "bla",
+            "class": "Thief",
+            "points": 0
+        },
+        {
+            "name": "bla",
+            "class": "Thief",
+            "points": 0
+        },
+        {
+            "name": "bla",
+            "class": "Thief",
+            "points": 0
+        },
+        {
+            "name": "bla",
+            "class": "Wizard",
+            "points": 0
         }
     ]
 }
