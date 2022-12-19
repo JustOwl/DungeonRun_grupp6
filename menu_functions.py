@@ -89,7 +89,7 @@ def select_char():
             Current points: {char["points"]}\n''')
             input("Press any key to continue")
             return (char)
-    except IndexError:
+    except Exception:
         print("\n")
         print("Select user that exists. \n")
         return select_char()
