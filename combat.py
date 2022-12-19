@@ -46,13 +46,13 @@ def combat_loop(player, monster):
                 if monster.health <= 0:
                     print(f"You slayed the {monster.type}")
                     time.sleep(2)
-                    break
+                    return "won"
                 current_turn = monster.type
 
             elif answer == "2":
                 print("You successfully fled to previous room")
                 time.sleep(2)
-                break
+                return "fled"
         else:
             player.check_hit(monster.roll_dice(monster.attack))
             time.sleep(1)
@@ -60,7 +60,7 @@ def combat_loop(player, monster):
             if player.health <= 0:
                 print("You died")
                 time.sleep(2)
-                break
+                return "lost"
         time.sleep(0.5)
         # runs cls if os is windows. runs clear if unix-based (osx, linux)
         os.system('cls' if os.name == 'nt' else 'clear')
