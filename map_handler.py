@@ -62,16 +62,17 @@ class Map:
                 if(exit_in.lower() == "y"):
                     pass # TODO Call the function that ends the game and save the score
                 elif(exit_in.lower() == "n"):
+                    self.rooms[c_room].room_icon = "[E]"
                     return False
             except Exception:
                 print("Wrong input")
-
-        if self.rooms[c_room].monster != "":
+        elif self.rooms[c_room].monster != "":
             print("There is a monster here")
             monster = characters.Monster(type=self.rooms[c_room].monster)
             result = combat.combat_loop(self.player, monster)
             if result == "won":
                 self.rooms[c_room].monster = ""
+                return True
             elif result == "fled":
                 self.rooms[c_room].room_icon = "[!]"
                 return False
@@ -80,14 +81,16 @@ class Map:
                 pass
             # TODO Call start of combat with c_room.monster as the type of monster to fight
             # When the combat loop exits it should automaticaly return here (i think)
-
-        if self.rooms[c_room].treasure != 0:
+        elif self.rooms[c_room].treasure != 0:
             print(
                 f"There is a treasure here worth {self.rooms[c_room].treasure} points!")
-            # test.add_treasure(self.rooms[c_room].treasure)
-            points = self.add_score(self.rooms[c_room].treasure)
-        # TODO Call the function that saves loot
-        # The function might want to look like: add_loot(c_room.treasure : int)
+            self.add_score(self.rooms[c_room].treasure)
+            self.rooms[c_room].room_icon = "[ ]"
+            self.rooms[c_room].treasure = 0
+            return True
+        else:
+            self.rooms[c_room].room_icon = "[ ]"
+            return True
 
     def add_score(self, points):
         self.points += points
@@ -99,7 +102,7 @@ class Room:
         self.monster = ""
         self.treasure = 0
         self.has_exit = has_exit
-        self.has_visited = room_icon
+        self.room_icon = room_icon
 
     def monster_spawn(self):
         spawn_chanse = random.randint(0, 100)
@@ -161,11 +164,13 @@ def save_room(rooms: list, room_id: int):
 
 
 def next_round(map, rooms: list, map_size=4, player_location=(0, 0),  last_pos = (0, 0)):
-    if map.check_room() == False: # If the player flees then they return to the last room
-        map.draw_map_easy(last_pos)
-    else:
+    map.player_location = player_location
+    if map.check_room(): 
         map.draw_map_easy(player_location)
-    save_room(rooms, map.current_room(player_location))
+        return True
+    else: # If the player flees then they return to the last room
+        map.draw_map_easy(last_pos)
+        return False
 
 # Used for testing
 
