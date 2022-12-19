@@ -43,11 +43,12 @@ def main(player, user, corner_int=1, map_size=4):
             print("Wrong input")
 
 class Movement:
-    def __init__(self, player_pos, map_size, ):
+    def __init__(self, player_pos, map_size, user):
       self.player_pos = player_pos
       self.last_pos = ()
       self.new_pos  = ()
       self.map_size = map_size
+      self.user = user
 
     def move_char(self,move_value : int, v_or_h : int, current_map, room_ls,):
         # v_or_h is if its vertical or horizontal movement, 0 = vertical and 1 = horizontal
@@ -56,7 +57,7 @@ class Movement:
             if self.player_pos[v_or_h]+move_value in range(self.map_size):
                 self.last_pos = (self.player_pos[0], self.player_pos[1])
                 self.new_pos  = (self.player_pos[0]+move_value, self.player_pos[1])
-                if map_handler.next_round(current_map, room_ls, self.map_size, self.player_pos):
+                if map_handler.next_round(current_map, room_ls, self.map_size, self.player_pos, user=self.user):
                     current_map.draw_map_easy(self.new_pos)
                     self.player_pos = self.new_pos
                     return True
@@ -69,7 +70,7 @@ class Movement:
             if self.player_pos[v_or_h]+move_value in range(self.map_size):
                 self.last_pos = (self.player_pos[0], self.player_pos[1])
                 self.new_pos  = (self.player_pos[0], self.player_pos[1]+move_value)
-                if map_handler.next_round(current_map, room_ls, self.map_size, self.player_pos):
+                if map_handler.next_round(current_map, room_ls, self.map_size, self.player_pos, user=self.user):
                     current_map.draw_map_easy(self.new_pos)
                     self.player_pos = self.new_pos
                     return True

@@ -53,15 +53,14 @@ class Map:
                 self.current_pos = (self.rooms[i].location, i)
                 return i  # Returns id of current room
 
-    def check_room(self, c_room = 0):
+    def check_room(self, user):
         c_room = self.current_room(self.player_location)
 
         if self.rooms[c_room].has_exit == True:
             exit_in = input("You have found an exit! Do you wish to leave the map? (Y/N): ")
             try:
                 if(exit_in.lower() == "y"):
-                    
-                    pass # TODO Call the function that ends the game and save the score
+                    user.update_selected_user_points(self.points)
                 elif(exit_in.lower() == "n"):
                     self.rooms[c_room].room_icon = "[E]"
                     return False
@@ -164,9 +163,9 @@ def save_room(rooms: list, room_id: int):
     rooms[room_id].treasure = 0
 
 
-def next_round(map, rooms: list, map_size=4, player_location=(0, 0)):
+def next_round(map, rooms: list, user, map_size=4, player_location=(0, 0)):
     map.player_location = player_location
-    if map.check_room(): 
+    if map.check_room(user): 
         return True
     else: # If the player flees then they return to the last room
         return False
