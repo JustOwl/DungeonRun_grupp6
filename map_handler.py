@@ -54,8 +54,14 @@ class Map:
         c_room = self.current_room(self.player_location)
 
         if self.rooms[c_room].has_exit == True:
-            pass
-            # TODO Call the function that asks if the player wants to exit or not
+            exit_in = input("You have found an exit! Do you wish to leave the map? (Y/N): ")
+            try:
+                if(exit_in.lower() == "y"):
+                    pass # TODO Call the function that ends the game and save the score
+                elif(exit_in.lower() == "n"):
+                    return False
+            except Exception:
+                print("Wrong input")
 
         if self.rooms[c_room].monster != "":
             print("There is a monster here")
@@ -69,11 +75,6 @@ class Map:
             else:
                 # TODO add game ending if dead
                 pass
-            # TODO Call start of combat with c_room.monster as the type of monster to fight
-            # When the combat loop exits it should automaticaly return here (i think)
-
-        # TODO Call the function that saves loot
-        # The function might want to look like: add_loot(c_room.treasure : int)
 
 
 class Room:
