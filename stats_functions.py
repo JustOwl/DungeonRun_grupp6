@@ -1,5 +1,5 @@
 import json
-
+import time
 FILEPATHJSON = "data/users.json"
 
 # Function for taking last added values in users.json while player exits game
@@ -87,11 +87,19 @@ def write_json(new_data, fpjson):
 def char_creation(player_class=""):
     data_dict = {"name": "", "class": "", "points": 0}
     data_input = input("please enter username: ")
-    data_input_char = player_class
-    data_dict["name"] = (data_input)
-    data_dict["class"] = (data_input_char)
-    print("user added")
-    return data_dict
+    with open("data/users.json") as f:
+        stats = json.load(f)
+        players = [x['name'] for x in stats["users"]]
+    if data_input in players:
+        print("Username already exists... ")
+        time.sleep(0.5)
+        return char_creation()
+    else:    
+        data_input_char = player_class
+        data_dict["name"] = (data_input)
+        data_dict["class"] = (data_input_char)
+        print("user added")
+        return data_dict
 
 
 # Function for updating last user added points
