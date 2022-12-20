@@ -7,7 +7,7 @@ def main(player, user, corner_int=1, map_size=4):
     room_ls = map_handler.make_map(map_size)
     current_map = map_handler.Map(room_ls, map_size, player)
     player_pos = pick_corner(corner_int, map_size)
-    map_movement = Movement(player_pos,map_size)
+    map_movement = Movement(player_pos, map_size, user)
     current_map.draw_map_easy(player_pos)
     map_handler.gen_random(room_ls)
     while True:
@@ -17,25 +17,25 @@ def main(player, user, corner_int=1, map_size=4):
             p_in = input("Type in cardinal direction(N/S/E/W): ")
             if (p_in.lower() == "n"):  # Go North on the map
                 if map_movement.move_char(-1, 0, current_map, room_ls):
-                    pass
+                    continue
                 else:
                     print("That seems to be outside the map, try again")
 
             if (p_in.lower() == "s"):  # Go South on the map
                 if map_movement.move_char(1, 0, current_map, room_ls):
-                    pass
+                    continue
                 else:
                     print("That seems to be outside the map, try again")
 
             if (p_in.lower() == "e"):  # Go East on the map
                 if map_movement.move_char(1, 1, current_map, room_ls):
-                    pass
+                    continue
                 else:
                     print("That seems to be outside the map, try again")
 
             if (p_in.lower() == "w"):  # Go West on the map
                 if map_movement.move_char(-1, 1, current_map, room_ls):
-                    pass
+                    continue
                 else:
                     print("That seems to be outside the map, try again")
         except Exception as e:
@@ -57,7 +57,7 @@ class Movement:
             if self.player_pos[v_or_h]+move_value in range(self.map_size):
                 self.last_pos = (self.player_pos[0], self.player_pos[1])
                 self.new_pos  = (self.player_pos[0]+move_value, self.player_pos[1])
-                if map_handler.next_round(current_map, room_ls, self.map_size, self.player_pos, user=self.user):
+                if map_handler.next_round(current_map, room_ls, self.user, self.map_size, self.player_pos,):
                     current_map.draw_map_easy(self.new_pos)
                     self.player_pos = self.new_pos
                     return True
@@ -70,7 +70,7 @@ class Movement:
             if self.player_pos[v_or_h]+move_value in range(self.map_size):
                 self.last_pos = (self.player_pos[0], self.player_pos[1])
                 self.new_pos  = (self.player_pos[0], self.player_pos[1]+move_value)
-                if map_handler.next_round(current_map, room_ls, self.map_size, self.player_pos, user=self.user):
+                if map_handler.next_round(current_map, room_ls, self.user, self.map_size, self.player_pos):
                     current_map.draw_map_easy(self.new_pos)
                     self.player_pos = self.new_pos
                     return True
