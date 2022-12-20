@@ -25,12 +25,16 @@ class Character:
         time.sleep(0.5)
         return dice_score
 
-    def check_hit(self, dice_score):
+    def check_hit(self, dice_score, dmg=1):
         if dice_score < self.dexterity:
             print("miss!")
         else:
-            print("Hit!")
-            self.health -= 1
+            if dmg == 2:
+                msg = "critical hit!"
+            else:
+                msg = "hit!"
+            print(msg)
+            self.health -= dmg
 
 
 class Player(Character):

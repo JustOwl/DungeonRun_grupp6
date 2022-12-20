@@ -39,6 +39,16 @@
             "name": "bla",
             "class": "Wizard",
             "points": 0
+        },
+        {
+            "name": "testar",
+            "class": "Knight",
+            "points": 0
+        },
+        {
+            "name": "test",
+            "class": "Knight",
+            "points": 0
         }
     ]
 }
