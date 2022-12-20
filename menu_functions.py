@@ -6,6 +6,7 @@ import time
 import player_movement
 import json
 import time
+import sys
 
 
 def set_player_class():
@@ -22,7 +23,7 @@ def set_player_class():
 
 
 def set_map_size():
-    maps = {"1": 4, "2": 5, "3": 8}
+    maps = {"1": 2, "2": 5, "3": 8}
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         print(visual_menu.MENU_MAP_CHOICE)
@@ -115,8 +116,8 @@ def get_stats():
             pos = int(selected_user)
             pos = pos - 1
             stats_functions.view_stats(pos)
-    except IndexError:
-        print("Select a username that exists.")
+    except Exception:
+        print("Wrong input ")
 
 
 def exit_game():
@@ -126,6 +127,7 @@ def exit_game():
         return main_menu()
     elif confirm == "y":
         os.system('cls' if os.name == 'nt' else 'clear')
+        sys.exit()
     else:
         print("Wrong input, try again. ")
         return exit_game()

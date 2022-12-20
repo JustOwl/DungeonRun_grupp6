@@ -2,6 +2,8 @@ import combat
 import random
 import characters
 import menu_functions
+import stats_functions
+
 
 class Map:
 
@@ -56,14 +58,16 @@ class Map:
         c_room = self.current_room(self.player_location)
 
         if self.rooms[c_room].has_exit == True:
-            exit_in = input("You have found an exit! Do you wish to leave the map? (Y/N): ")
+            exit_in = input(
+                "You have found an exit! Do you wish to leave the map? (Y/N): ")
             try:
-                if(exit_in.lower() == "y"):
-                    user.player_exit()
+                if (exit_in.lower() == "y"):
                     user.update_selected_user_points(self.points)
+                    stats = stats_functions.get_update_json()
+                    user.player_exit(stats)
                     input("Press enter to return to main menu! ")
                     menu_functions.main_menu()
-                elif(exit_in.lower() == "n"):
+                elif (exit_in.lower() == "n"):
                     self.rooms[c_room].room_icon = "[E]"
                     return False
             except Exception:
@@ -168,9 +172,9 @@ def save_room(rooms: list, room_id: int):
 
 def next_round(map, rooms: list, user, map_size=4, player_location=(0, 0)):
     map.player_location = player_location
-    if map.check_room(user): 
+    if map.check_room(user):
         return True
-    else: # If the player flees then they return to the last room
+    else:  # If the player flees then they return to the last room
         return False
 
 # Used for testing

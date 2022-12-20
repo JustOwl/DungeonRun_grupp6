@@ -17,7 +17,7 @@ class User:
         with open("data/users.json", "w") as f:
             f.write(json.dumps(data, indent=4))
 
-    def player_dead(self):
+    def player_dead(self, stats):
         with open("data/users.json") as f:
             stats = json.load(f)
             player_name = [x['name'] for x in stats["users"]]
@@ -33,13 +33,11 @@ class User:
             POINTS: {player_points[self.user]}        
             ''')
 
-    def player_exit(self):
-        with open("data/users.json") as f:
-            stats = json.load(f)
-            player_name = [x['name'] for x in stats["users"]]
-            player_class = [x['class'] for x in stats["users"]]
-            player_points = [x['points'] for x in stats["users"]]
-            print(f''' 
+    def player_exit(self, stats):
+        player_name = [x['name'] for x in stats["users"]]
+        player_class = [x['class'] for x in stats["users"]]
+        player_points = [x['points'] for x in stats["users"]]
+        print(f''' 
             You have exited the game, well played!
                 
             STATS
@@ -94,7 +92,7 @@ def char_creation(player_class=""):
         print("Username already exists... ")
         time.sleep(0.5)
         return char_creation()
-    else:    
+    else:
         data_input_char = player_class
         data_dict["name"] = (data_input)
         data_dict["class"] = (data_input_char)
@@ -130,5 +128,10 @@ def view_stats(y):
         POINTS: {player_points[y]}        
         ''')
 
+
+def get_update_json():
+    with open("data/users.json") as f:
+        stats = json.load(f)
+        return stats
 # Function for saving collected treasures to player
 # User = position in list of users
