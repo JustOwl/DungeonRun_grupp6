@@ -17,28 +17,43 @@ class User:
         with open("data/users.json", "w") as f:
             f.write(json.dumps(data, indent=4))
 
-
-def player_exit(fpjson):
-    with open(fpjson) as f:
-        stats = json.load(f)
-        player_name = [x['name'] for x in stats["users"]]
-        player_class = [x['class'] for x in stats["users"]]
-        player_points = [x['points'] for x in stats["users"]]
-        print(f''' 
-        You have exited the game, well played!
+    def player_dead(self):
+        with open("data/users.json") as f:
+            stats = json.load(f)
+            player_name = [x['name'] for x in stats["users"]]
+            player_class = [x['class'] for x in stats["users"]]
+            player_points = [x['points'] for x in stats["users"]]
+            print(f''' 
             
-        STATS
-        USERNAME: {player_name[-1]}
-        CLASS: {player_class[-1]} 
-        POINTS: {player_points[-1]}
+            You are dead. Bad luck :(
+                
+            STATS
+            USERNAME: {player_name[self.user]}
+            CLASS: {player_class[self.user]}
+            POINTS: {player_points[self.user]}        
             ''')
+
+    def player_exit(self):
+        with open("data/users.json") as f:
+            stats = json.load(f)
+            player_name = [x['name'] for x in stats["users"]]
+            player_class = [x['class'] for x in stats["users"]]
+            player_points = [x['points'] for x in stats["users"]]
+            print(f''' 
+            You have exited the game, well played!
+                
+            STATS
+            USERNAME: {player_name[self.user]}
+            CLASS: {player_class[self.user]} 
+            POINTS: {player_points[self.user]}
+                ''')
 
 
 # Function for taking last added values from users.json while player dies
 
 
-def player_dead(fpjson):
-    with open(fpjson) as f:
+def player_dead(self):
+    with open("data/users.json") as f:
         stats = json.load(f)
         player_name = [x['name'] for x in stats["users"]]
         player_class = [x['class'] for x in stats["users"]]
@@ -48,9 +63,9 @@ def player_dead(fpjson):
         You are dead. Bad luck :(
             
         STATS
-        USERNAME: {player_name[-1]}
-        CLASS: {player_class[-1]}
-        POINTS: {player_points[-1]}        
+        USERNAME: {player_name[self.user]}
+        CLASS: {player_class[self.user]}
+        POINTS: {player_points[self.user]}        
         ''')
 
 

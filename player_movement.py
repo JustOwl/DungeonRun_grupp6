@@ -12,7 +12,7 @@ def main(player, user, corner_int=1, map_size=4):
     map_handler.gen_random(room_ls)
     while True:
         print(
-            f"Health: {str(player.health)} | Class: {str(player.type)} | Points: {str(player.points)}")
+            f"Health: {str(player.health)} | Class: {str(player.type)} | Points: {str(current_map.points)}")
         try:
             p_in = input("Type in cardinal direction(N/S/E/W): ")
             if (p_in.lower() == "n"):  # Go North on the map

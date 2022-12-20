@@ -55,8 +55,9 @@ def game_setup():
     # creates player and generates all stats according to selected class
     player = characters.Player(type=player_class)
     char = stats_functions.char_creation(player.type)
+    current_user = stats_functions.User(-1)
     stats_functions.write_json(char, fpjson=stats_functions.FILEPATHJSON)
-    player_movement.main(player, set_start_pos(), set_map_size())
+    player_movement.main(player, current_user, set_start_pos(), set_map_size())
 
 # Gets already existing players and selects them for use
 

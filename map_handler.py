@@ -1,8 +1,7 @@
 import combat
 import random
-import test
 import characters
-
+import menu_functions
 
 class Map:
 
@@ -60,7 +59,10 @@ class Map:
             exit_in = input("You have found an exit! Do you wish to leave the map? (Y/N): ")
             try:
                 if(exit_in.lower() == "y"):
+                    user.player_exit()
                     user.update_selected_user_points(self.points)
+                    input("Press enter to return to main menu! ")
+                    menu_functions.main_menu()
                 elif(exit_in.lower() == "n"):
                     self.rooms[c_room].room_icon = "[E]"
                     return False
@@ -72,16 +74,18 @@ class Map:
             result = combat.combat_loop(self.player, monster)
             if result == "won":
                 self.rooms[c_room].monster = ""
+                save_room(self.rooms, c_room)
                 return True
             elif result == "fled":
                 self.rooms[c_room].room_icon = "[!]"
                 return False
             else:
-                # TODO add game ending if dead
-                pass
+                user.player_dead()
+                input("Press enter to return to main menu! ")
+                menu_functions.main_menu()
             # TODO Call start of combat with c_room.monster as the type of monster to fight
             # When the combat loop exits it should automaticaly return here (i think)
-        elif self.rooms[c_room].treasure != 0:
+        if self.rooms[c_room].treasure != 0:
             print(
                 f"There is a treasure here worth {self.rooms[c_room].treasure} points!")
             self.add_score(self.rooms[c_room].treasure)
@@ -160,7 +164,6 @@ def gen_random(rooms):
 def save_room(rooms: list, room_id: int):
     rooms[room_id].room_icon = "[ ]"
     rooms[room_id].monster = ""
-    rooms[room_id].treasure = 0
 
 
 def next_round(map, rooms: list, user, map_size=4, player_location=(0, 0)):
