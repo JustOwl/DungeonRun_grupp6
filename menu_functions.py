@@ -23,7 +23,7 @@ def set_player_class():
 
 
 def set_map_size():
-    maps = {"1": 2, "2": 5, "3": 8}
+    maps = {"1": 4, "2": 5, "3": 8}
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         print(visual_menu.MENU_MAP_CHOICE)
