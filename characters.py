@@ -30,7 +30,7 @@ class Character:
             print("miss!")
         else:
             if dmg == 2:
-                msg = "critical hit!"
+                msg = "critical hit! x2 damage"
             else:
                 msg = "hit!"
             print(msg)

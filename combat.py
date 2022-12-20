@@ -127,4 +127,6 @@ def combat_loop(player, monster):
 if __name__ == "__main__":
     player = characters.Player(type="Thief")
     monster = characters.Monster(type="Troll")
+    player.health = 100
+    monster.health = 100
     combat_loop(player, monster)

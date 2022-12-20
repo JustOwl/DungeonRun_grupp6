@@ -49,6 +49,11 @@
             "name": "test",
             "class": "Knight",
             "points": 0
+        },
+        {
+            "name": "riddarn",
+            "class": "Knight",
+            "points": 0
         }
     ]
 }
