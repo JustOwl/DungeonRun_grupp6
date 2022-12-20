@@ -153,12 +153,12 @@ def make_map(map_size=4):
 def gen_random(rooms):
     exit_room = random.randint(0, len(rooms))
 
-    for i in rooms:
+    for i in range(len(rooms)):
         if (i == exit_room):
-            i.has_exit = True
+            rooms[i].has_exit = True
         else:
-            i.monster_spawn()
-            i.treasure_spawn()
+            rooms[i].monster_spawn()
+            rooms[i].treasure_spawn()
 
 
 def save_room(rooms: list, room_id: int):
