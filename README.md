@@ -15,13 +15,24 @@ In said options, you will be faced with:
 
 Here you will get the option to create a new character and choose the class that you want to use
 
+    1.a. Start by selecting a hero.
+    1.b. Write your username.
+    1.c. Select starting position (Top left, righ or bottom left, right).
+    1.d. Select the size of the map you want to play on.
+
 2. Start adventure with existing character
 
 Here you will get the option to use an already existing character and keep collecting treasures with said character.
 
+    2.a. Start by selecting an existing user.
+    2.b. Select starting position (Top left, righ or bottom left, right).
+    2.c. Select the size of the map you want to play on.
+
 3. See stats of previous adventures
 
 Here you will get the option to show statistics of the previous adventures that have been played.
+
+    3.a. Select an existing user and check stats.
 
 4. Exit game
 
